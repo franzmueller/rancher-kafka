@@ -18,7 +18,8 @@ KAFKA_REPLICATION_FACTOR=${KAFKA_REPLICATION_FACTOR:-1}
 if [ "$ADVERTISE_PUB_IP" == "true" ]; then
     KAFKA_ADVERTISE_IP='{{getv "/self/host/agent_ip"}}'
 else
-    KAFKA_ADVERTISE_IP='{{getv "/self/container/primary_ip"}}'
+    #KAFKA_ADVERTISE_IP='{{getv "/self/container/primary_ip"}}'
+    KAFKA_ADVERTISE_IP='{{getv "/self/stack/name"}}-{{getv "/self/service/name"}}-{{getv "/self/container/service_index"}}'
 fi
 KAFKA_ADVERTISE_LISTENER=${KAFKA_ADVERTISE_LISTENER:-"PLAINTEXT://"${KAFKA_ADVERTISE_IP}":"${KAFKA_ADVERTISE_PORT}}
 
